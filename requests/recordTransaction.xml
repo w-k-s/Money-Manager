@@ -1,0 +1,11 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://www.wks.io/moneymanager/gen">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:recordTransaction>
+            <gs:amount>10.00</gs:amount>
+            <gs:date>2020-01-16</gs:date>
+            <gs:description>Salary</gs:description>
+        </gs:recordTransaction>
+    </soapenv:Body>
+</soapenv:Envelope>

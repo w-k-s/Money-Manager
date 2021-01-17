@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.wks.io/moneymanager/gen"
+           xmlns:tns="http://www.wks.io/moneymanager/gen"
+           elementFormDefault="qualified">
+
+    <xs:element name="recordTransaction">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="amount" type="xs:decimal"/>
+                <xs:element name="date" type="xs:date"/>
+                <xs:element name="description" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="recordTransactionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTransactions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:date"/>
+                <xs:element name="to" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="transactionResponse">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="amount" type="xs:decimal"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="transactionsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactions" type="tns:transactionResponse" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTransactionsByUuid">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

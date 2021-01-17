@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://www.wks.io/moneymanager/gen">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:getTransactionsByUuid>
+            <gs:uuid>${uuid}</gs:uuid>
+        </gs:getTransactionsByUuid>
+    </soapenv:Body>
+</soapenv:Envelope>
