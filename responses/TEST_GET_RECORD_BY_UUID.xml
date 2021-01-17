@@ -1,0 +1,13 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:transactionsResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
+            <ns2:transactions>
+                <ns2:uuid>92d6b198-be86-4ff2-9b9c-9edf02ab5df2</ns2:uuid>
+                <ns2:amount>10.00</ns2:amount>
+                <ns2:date>2020-01-16</ns2:date>
+                <ns2:description>Salary</ns2:description>
+            </ns2:transactions>
+        </ns2:transactionsResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
