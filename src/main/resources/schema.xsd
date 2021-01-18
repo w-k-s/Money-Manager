@@ -4,7 +4,7 @@
            xmlns:tns="http://www.wks.io/moneymanager/gen"
            elementFormDefault="qualified">
 
-    <xs:element name="recordTransaction">
+    <xs:element name="recordTransactionRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="amount" type="xs:decimal"/>
@@ -22,7 +22,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getTransactions">
+    <xs:element name="getTransactionsRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="from" type="xs:date"/>
@@ -40,7 +40,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="transactionsResponse">
+    <xs:element name="getTransactionsResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="transactions" type="tns:transactionResponse" maxOccurs="unbounded"/>
@@ -48,7 +48,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getTransactionsByUuid">
+    <xs:element name="getTransactionsByUuidRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="uuid" type="xs:string"/>

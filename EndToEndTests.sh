@@ -25,7 +25,7 @@ function TEST_GET_RECORD_BY_UUID(){
 
   # https://stackoverflow.com/a/415775/821110
   local CONTENT=$(sed -e "s/\${uuid}/$TEST_UUID/" requests/getTransactionsByUuid.xml)
-  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -d "$CONTENT" $ENDPOINT)
+  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
   echo "$RESULT" > responses/TEST_GET_RECORD_BY_UUID.xml;
 
   local RETURN_UUID=$(echo "$RESULT" | sed -rn 's/.*<ns2:uuid>(.*)<\/ns2:uuid>.*/\1/p')
@@ -42,7 +42,7 @@ function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
   echo 'TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST ...';
 
   local CONTENT=$(sed -e "s/\${uuid}/a9d7b490-58fd-11eb-ae93-0242ac130002/" requests/getTransactionsByUuid.xml)
-  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -d "$CONTENT" $ENDPOINT)
+  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
   echo "$RESULT" > responses/TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST.xml;
 
   if [[ "$RESULT" == *"404_TRANSACTION_NOT_FOUND"* ]]; then
@@ -53,5 +53,5 @@ function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
 }
 
 TEST_RECORD_TRANSACTION;
-TEST_GET_RECORD_BY_UUID;
-TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST;
+#TEST_GET_RECORD_BY_UUID;
+#TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST;

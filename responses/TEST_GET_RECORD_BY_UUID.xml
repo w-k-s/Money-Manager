@@ -1,13 +1,1 @@
-<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-    <SOAP-ENV:Header/>
-    <SOAP-ENV:Body>
-        <ns2:transactionsResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
-            <ns2:transactions>
-                <ns2:uuid>92d6b198-be86-4ff2-9b9c-9edf02ab5df2</ns2:uuid>
-                <ns2:amount>10.00</ns2:amount>
-                <ns2:date>2020-01-16</ns2:date>
-                <ns2:description>Salary</ns2:description>
-            </ns2:transactions>
-        </ns2:transactionsResponse>
-    </SOAP-ENV:Body>
-</SOAP-ENV:Envelope>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode>SOAP-ENV:Client</faultcode><faultstring xml:lang="en">com.sun.xml.wss.XWSSecurityException: Message does not conform to configured policy [ AuthenticationTokenPolicy(S) ]:  No Security Header found; nested exception is com.sun.xml.wss.XWSSecurityException: com.sun.xml.wss.XWSSecurityException: Message does not conform to configured policy [ AuthenticationTokenPolicy(S) ]:  No Security Header found</faultstring></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>
