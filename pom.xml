@@ -55,12 +55,12 @@
             <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-security</artifactId>
             <version>3.0.10.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-core</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.security</groupId>-->
+<!--                    <artifactId>spring-security-core</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>com.sun.xml.wss</groupId>
@@ -127,6 +127,15 @@
                         <xjbSource>src/main/resources/binding.xjb</xjbSource>
                     </xjbSources>
                     <extension>true</extension>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>15</source>
+                    <target>15</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

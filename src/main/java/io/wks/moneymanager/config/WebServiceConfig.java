@@ -1,17 +1,22 @@
 package io.wks.moneymanager.config;
 
-import com.google.common.collect.ImmutableMap;
+import io.wks.moneymanager.services.DefaultUserDetailsService;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor;
-import org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler;
 import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
+import org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler;
+import org.springframework.ws.soap.security.xwss.callback.SpringPlainTextPasswordValidationCallbackHandler;
 import org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
@@ -19,7 +24,6 @@ import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import static io.wks.moneymanager.constants.Constants.NAMESPACE_URI;
@@ -76,7 +80,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     XwsSecurityInterceptor securityInterceptor() {
         XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
-        securityInterceptor.setCallbackHandler(callbackHandler());
+        securityInterceptor.setCallbackHandler(springCallbackHandler());
         securityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
         return securityInterceptor;
     }
@@ -90,6 +94,21 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         SimplePasswordValidationCallbackHandler callbackHandler = new SimplePasswordValidationCallbackHandler();
         callbackHandler.setUsersMap(Collections.singletonMap("admin","password"));
         return callbackHandler;
+    }
+
+    @Bean
+    SpringPlainTextPasswordValidationCallbackHandler springCallbackHandler(){
+        SpringPlainTextPasswordValidationCallbackHandler callbackHandler = new SpringPlainTextPasswordValidationCallbackHandler();
+        callbackHandler.setAuthenticationManager(authenticationManager());
+        return callbackHandler;
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(){
+        var provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setUserDetailsService(new DefaultUserDetailsService());
+        return new ProviderManager(provider);
     }
 
     @Override

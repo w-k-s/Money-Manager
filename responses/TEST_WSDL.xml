@@ -35,6 +35,7 @@
             <xs:element name="amount" type="xs:decimal"/>
             <xs:element name="date" type="xs:date"/>
             <xs:element name="description" type="xs:string"/>
+            <xs:element name="createdBy" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

@@ -17,3 +17,8 @@ An excuse to get myself familiar with SOAP
 - the `SoapActionAnnotationMethodEndpointMapping` uses the `@SoapAction` annotation to mark methods with a particular SOAP Action. Whenever a message comes in which has this SOAPAction header, the method will be invoked. 
 
 [Reference](https://docs.spring.io/spring-ws/site/reference/html/server.html#server-endpoint-mapping)
+
+## 2. References
+
+- [How to implement security in SOAP webservice using Spring-WS](https://tutorialflix.com/How-to-implement-security-in-SOAP-webservice-using-Spring-WS/)
+- [Chapter 7. Securing your Web services with Spring-WS](https://docs.spring.io/spring-ws/site/reference/html/security.html)

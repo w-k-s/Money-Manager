@@ -7,7 +7,7 @@ ENDPOINT=http://localhost:8080/ws
 function TEST_RECORD_TRANSACTION(){
   echo 'TEST RECORD TRANSACTION ...';
 
-  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -d @requests/recordTransaction.xml $ENDPOINT)
+  local RESULT=$(curl -s -X POST -H 'Content-Type: text/xml' -d @requests/recordTransaction.xml $ENDPOINT)
   echo "$RESULT" > responses/TEST_RECORD_TRANSACTION.xml;
 
   TEST_UUID=$(echo "$RESULT" | sed -rn 's/.*<ns2:uuid>(.*)<\/ns2:uuid>.*/\1/p')
@@ -25,13 +25,13 @@ function TEST_GET_RECORD_BY_UUID(){
 
   # https://stackoverflow.com/a/415775/821110
   local CONTENT=$(sed -e "s/\${uuid}/$TEST_UUID/" requests/getTransactionsByUuid.xml)
-  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
+  local RESULT=$(curl -s -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
   echo "$RESULT" > responses/TEST_GET_RECORD_BY_UUID.xml;
 
   local RETURN_UUID=$(echo "$RESULT" | sed -rn 's/.*<ns2:uuid>(.*)<\/ns2:uuid>.*/\1/p')
-  local RETURN_DESC=$(echo "$RESULT" | sed -rn 's/.*<ns2:description>(.*)<\/ns2:description>.*/\1/p')
+  local RETURN_CREATED_BY=$(echo "$RESULT" | sed -rn 's/.*<ns2:createdBy>(.*)<\/ns2:createdBy>.*/\1/p')
 
-  if [[ "$RETURN_UUID" = "$TEST_UUID" && "$RETURN_DESC" = "Salary" ]]; then
+  if [[ "$RETURN_UUID" = "$TEST_UUID" && "$RETURN_CREATED_BY" = "admin" ]]; then
     echo 'OK'
   else
     echo 'FAILURE'
@@ -42,7 +42,7 @@ function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
   echo 'TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST ...';
 
   local CONTENT=$(sed -e "s/\${uuid}/a9d7b490-58fd-11eb-ae93-0242ac130002/" requests/getTransactionsByUuid.xml)
-  local RESULT=$(curl -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
+  local RESULT=$(curl -s -X POST -H 'Content-Type: text/xml' -H 'SOAPAction:http://www.wks.io/moneymanager/gen/transaction/findByUuid' -d "$CONTENT" $ENDPOINT)
   echo "$RESULT" > responses/TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST.xml;
 
   if [[ "$RESULT" == *"404_TRANSACTION_NOT_FOUND"* ]]; then
@@ -55,7 +55,7 @@ function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
 function TEST_WSDL(){
   echo 'TEST_WSDL ...';
 
-  local RESULT=$(curl -X GET "$ENDPOINT/transactions.wsdl")
+  local RESULT=$(curl -s -X GET "$ENDPOINT/transactions.wsdl")
   echo "$RESULT" > responses/TEST_WSDL.xml;
 
   if [[ -n "$RESULT" ]]; then

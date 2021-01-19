@@ -2,6 +2,7 @@ package io.wks.moneymanager.endpoints;
 
 import io.wks.moneymanager.Transaction;
 import io.wks.moneymanager.gen.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -23,14 +24,15 @@ public class TransactionEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recordTransactionRequest")
     @ResponsePayload
-    public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request
-    ) {
+    public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request) {
         final var uuid = UUID.randomUUID();
+        final var authentication = SecurityContextHolder.getContext().getAuthentication();
         transactionStore.put(uuid, new Transaction(
                 uuid,
                 request.getDescription(),
                 request.getAmount(),
-                request.getDate().toGregorianCalendar().toZonedDateTime().toLocalDate()
+                request.getDate().toGregorianCalendar().toZonedDateTime().toLocalDate(),
+                authentication.getName()
         ));
 
         final var response = new RecordTransactionResponse();
@@ -39,17 +41,18 @@ public class TransactionEndpoint {
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTransactionsByUuid")
-    @SoapAction(NAMESPACE_URI+"/transaction/findByUuid")
+    @SoapAction(NAMESPACE_URI + "/transaction/findByUuid")
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
         return Optional.ofNullable(transactionStore.get(UUID.fromString(request.getUuid())))
                 .map(transaction -> {
                     try {
                         final var response = new TransactionResponse();
-                        response.setAmount(transaction.getAmount());
-                        response.setDescription(transaction.getDescription());
-                        response.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(transaction.getDate().toString()));
-                        response.setUuid(transaction.getUuid().toString());
+                        response.setAmount(transaction.amount());
+                        response.setDescription(transaction.description());
+                        response.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(transaction.date().toString()));
+                        response.setUuid(transaction.uuid().toString());
+                        response.setCreatedBy(transaction.createdBy());
                         return response;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
