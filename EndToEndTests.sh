@@ -52,6 +52,20 @@ function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
   fi
 }
 
+function TEST_WSDL(){
+  echo 'TEST_WSDL ...';
+
+  local RESULT=$(curl -X GET "$ENDPOINT/transactions.wsdl")
+  echo "$RESULT" > responses/TEST_WSDL.xml;
+
+  if [[ -n "$RESULT" ]]; then
+    echo 'OK'
+  else
+    echo 'FAILURE'
+  fi
+}
+
 TEST_RECORD_TRANSACTION;
 TEST_GET_RECORD_BY_UUID;
 TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST;
+TEST_WSDL;

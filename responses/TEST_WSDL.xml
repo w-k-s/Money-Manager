@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.wks.io/moneymanager/gen" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.wks.io/moneymanager/gen" targetNamespace="http://www.wks.io/moneymanager/gen">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.wks.io/moneymanager/gen">
+
+    <xs:element name="recordTransactionRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="amount" type="xs:decimal"/>
+                <xs:element name="date" type="xs:date"/>
+                <xs:element name="description" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="recordTransactionResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTransactionsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:date"/>
+                <xs:element name="to" type="xs:date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="transactionResponse">
+        <xs:sequence>
+            <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="amount" type="xs:decimal"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getTransactionsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="transactions" type="tns:transactionResponse"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getTransactionsByUuidRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="uuid" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="recordTransactionRequest">
+    <wsdl:part element="tns:recordTransactionRequest" name="recordTransactionRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionsResponse">
+    <wsdl:part element="tns:getTransactionsResponse" name="getTransactionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="recordTransactionResponse">
+    <wsdl:part element="tns:recordTransactionResponse" name="recordTransactionResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionsByUuidRequest">
+    <wsdl:part element="tns:getTransactionsByUuidRequest" name="getTransactionsByUuidRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionsRequest">
+    <wsdl:part element="tns:getTransactionsRequest" name="getTransactionsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RecordTransaction">
+    <wsdl:operation name="recordTransaction">
+      <wsdl:input message="tns:recordTransactionRequest" name="recordTransactionRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:recordTransactionResponse" name="recordTransactionResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactions">
+      <wsdl:input message="tns:getTransactionsRequest" name="getTransactionsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTransactionsResponse" name="getTransactionsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionsByUuid">
+      <wsdl:input message="tns:getTransactionsByUuidRequest" name="getTransactionsByUuidRequest">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RecordTransactionSoap11" type="tns:RecordTransaction">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="recordTransaction">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="recordTransactionRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="recordTransactionResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactions">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTransactionsRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTransactionsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionsByUuid">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTransactionsByUuidRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RecordTransactionService">
+    <wsdl:port binding="tns:RecordTransactionSoap11" name="RecordTransactionSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

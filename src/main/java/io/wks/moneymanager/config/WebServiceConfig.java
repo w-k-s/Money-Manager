@@ -41,7 +41,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
      * Bean name sets path for wsdl
      * i.e. http://localhost:8080/ws/transactions.wsdl
      */
-    @Bean(name = "transactionz")
+    @Bean(name = "transactions")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema transactionsSchema) {
         /**
          * DefaultWsdl11Definition expects all Request object to be suffixed with 'Request'
