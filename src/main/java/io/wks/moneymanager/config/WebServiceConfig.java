@@ -10,7 +10,7 @@ import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor;
-import org.springframework.ws.soap.security.wss4j2.callback.SimplePasswordValidationCallbackHandler;
+import org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler;
 import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
 import org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
@@ -83,6 +83,10 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
     @Bean
     SimplePasswordValidationCallbackHandler callbackHandler() {
+        //
+        // This is import org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler;
+        // Not to be confused with import org.springframework.ws.soap.security.wss4j2.callback.SimplePasswordValidationCallbackHandler;
+        //
         SimplePasswordValidationCallbackHandler callbackHandler = new SimplePasswordValidationCallbackHandler();
         callbackHandler.setUsersMap(Collections.singletonMap("admin","password"));
         return callbackHandler;

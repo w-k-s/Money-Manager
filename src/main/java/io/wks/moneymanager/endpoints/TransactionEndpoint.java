@@ -23,7 +23,8 @@ public class TransactionEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recordTransactionRequest")
     @ResponsePayload
-    public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request) {
+    public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request
+    ) {
         final var uuid = UUID.randomUUID();
         transactionStore.put(uuid, new Transaction(
                 uuid,
