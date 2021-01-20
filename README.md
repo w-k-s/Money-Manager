@@ -22,3 +22,4 @@ An excuse to get myself familiar with SOAP
 
 - [How to implement security in SOAP webservice using Spring-WS](https://tutorialflix.com/How-to-implement-security-in-SOAP-webservice-using-Spring-WS/)
 - [Chapter 7. Securing your Web services with Spring-WS](https://docs.spring.io/spring-ws/site/reference/html/security.html)
+- [Fixing Security header not found when delegating to XwssSecurityInterceptor](https://stackoverflow.com/a/43733139)

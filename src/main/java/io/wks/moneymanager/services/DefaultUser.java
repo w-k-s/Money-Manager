@@ -4,26 +4,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-public class DefaultUser implements UserDetails {
-    private final String username;
-    private final String password;
-    private final List<SimpleGrantedAuthority> authorities;
-    private final boolean enabled;
+public record DefaultUser(String username,
+                          String password,
+                          List<SimpleGrantedAuthority> authorities,
+                          boolean enabled) implements UserDetails {
 
-    public DefaultUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean enabled) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities == null? Collections.emptyList() : authorities;
-        this.enabled = enabled;
+    public DefaultUser {
+        Objects.requireNonNull(username);
+        Objects.requireNonNull(password);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return Optional.ofNullable(authorities)
+                .orElse(Collections.emptyList());
     }
 
     @Override

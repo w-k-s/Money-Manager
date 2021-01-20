@@ -1,5 +1,7 @@
 package io.wks.moneymanager.config;
 
+import io.wks.moneymanager.config.securityinterceptor.DefaultDelegatingSmartEndpointInterceptor;
+import io.wks.moneymanager.endpoints.TransactionEndpoint;
 import io.wks.moneymanager.services.DefaultUserDetailsService;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -78,11 +80,14 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     }
 
     @Bean
-    XwsSecurityInterceptor securityInterceptor() {
+    EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor securityInterceptor = new XwsSecurityInterceptor();
         securityInterceptor.setCallbackHandler(springCallbackHandler());
         securityInterceptor.setPolicyConfiguration(new ClassPathResource("securityPolicy.xml"));
-        return securityInterceptor;
+
+        return DefaultDelegatingSmartEndpointInterceptor.builder()
+                .assignInterceptor(securityInterceptor).to(TransactionEndpoint.class)
+                .build();
     }
 
     @Bean

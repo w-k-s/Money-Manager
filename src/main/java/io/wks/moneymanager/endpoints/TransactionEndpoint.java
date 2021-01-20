@@ -2,6 +2,8 @@ package io.wks.moneymanager.endpoints;
 
 import io.wks.moneymanager.Transaction;
 import io.wks.moneymanager.gen.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -24,9 +26,11 @@ public class TransactionEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recordTransactionRequest")
     @ResponsePayload
+    @Secured("hasRole('ROLE_ADMIN')")
     public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request) {
         final var uuid = UUID.randomUUID();
         final var authentication = SecurityContextHolder.getContext().getAuthentication();
+
         transactionStore.put(uuid, new Transaction(
                 uuid,
                 request.getDescription(),
@@ -40,7 +44,7 @@ public class TransactionEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTransactionsByUuid")
+    //@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTransactionsByUuidRequest")
     @SoapAction(NAMESPACE_URI + "/transaction/findByUuid")
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
