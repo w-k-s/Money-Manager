@@ -1,9 +1,10 @@
 package io.wks.moneymanager.endpoints;
 
+import io.wks.moneymanager.Category;
 import io.wks.moneymanager.Transaction;
 import io.wks.moneymanager.gen.*;
+import io.wks.moneymanager.repository.TransactionRepository;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -12,17 +13,18 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
 
 import javax.xml.datatype.DatatypeFactory;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static io.wks.moneymanager.constants.Constants.NAMESPACE_URI;
 
 @Endpoint
 public class TransactionEndpoint {
 
-    private static final Map<UUID, Transaction> transactionStore = new ConcurrentHashMap();
+    private final TransactionRepository transactionRepository;
+
+    public TransactionEndpoint(TransactionRepository transactionRepository){
+        this.transactionRepository = transactionRepository;
+    }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recordTransactionRequest")
     @ResponsePayload
@@ -31,8 +33,9 @@ public class TransactionEndpoint {
         final var uuid = UUID.randomUUID();
         final var authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        transactionStore.put(uuid, new Transaction(
+        transactionRepository.save(new Transaction(
                 uuid,
+                Category.of(request.getCategory().getNames()),
                 request.getDescription(),
                 request.getAmount(),
                 request.getDate().toGregorianCalendar().toZonedDateTime().toLocalDate(),
@@ -48,14 +51,18 @@ public class TransactionEndpoint {
     @SoapAction(NAMESPACE_URI + "/transaction/findByUuid")
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
-        return Optional.ofNullable(transactionStore.get(UUID.fromString(request.getUuid())))
+        return transactionRepository.findById(UUID.fromString(request.getUuid()))
                 .map(transaction -> {
                     try {
+                        final var category = new io.wks.moneymanager.gen.Category();
+                        category.getNames().addAll(transaction.category().asList());
+
                         final var response = new TransactionResponse();
+                        response.setUuid(transaction.uuid().toString());
+                        response.setCategory(category);
                         response.setAmount(transaction.amount());
                         response.setDescription(transaction.description());
                         response.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(transaction.date().toString()));
-                        response.setUuid(transaction.uuid().toString());
                         response.setCreatedBy(transaction.createdBy());
                         return response;
                     } catch (Exception e) {

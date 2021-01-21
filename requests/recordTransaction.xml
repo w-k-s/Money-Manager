@@ -11,9 +11,13 @@
     </soapenv:Header>
     <soapenv:Body>
         <gs:recordTransactionRequest>
-            <gs:amount>10.00</gs:amount>
+            <gs:amount>-60.00</gs:amount>
+            <gs:category>
+                <gs:name>Car</gs:name>
+                <gs:name>Cleaning</gs:name>
+            </gs:category>
             <gs:date>2020-01-16</gs:date>
-            <gs:description>Salary</gs:description>
+            <gs:description>Car wash</gs:description>
         </gs:recordTransactionRequest>
     </soapenv:Body>
 </soapenv:Envelope>

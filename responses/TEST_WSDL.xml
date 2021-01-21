@@ -6,6 +6,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="amount" type="xs:decimal"/>
+                <xs:element name="category" type="tns:category"/>
                 <xs:element name="date" type="xs:date"/>
                 <xs:element name="description" type="xs:string"/>
             </xs:sequence>
@@ -32,10 +33,17 @@
     <xs:complexType name="transactionResponse">
         <xs:sequence>
             <xs:element name="uuid" type="xs:string"/>
+            <xs:element name="category" type="tns:category"/>
             <xs:element name="amount" type="xs:decimal"/>
             <xs:element name="date" type="xs:date"/>
             <xs:element name="description" type="xs:string"/>
             <xs:element name="createdBy" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="category">
+        <xs:sequence>
+            <xs:element maxOccurs="3" minOccurs="1" name="name" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
