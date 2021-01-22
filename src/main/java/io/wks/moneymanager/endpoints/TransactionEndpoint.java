@@ -4,13 +4,14 @@ import io.wks.moneymanager.Category;
 import io.wks.moneymanager.Transaction;
 import io.wks.moneymanager.gen.*;
 import io.wks.moneymanager.repository.TransactionRepository;
+import org.casbin.jcasbin.main.Enforcer;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import org.springframework.ws.soap.server.endpoint.annotation.SoapAction;
+import org.springframework.ws.soap.addressing.server.annotation.Action;
 
 import javax.xml.datatype.DatatypeFactory;
 import java.util.UUID;
@@ -21,9 +22,11 @@ import static io.wks.moneymanager.constants.Constants.NAMESPACE_URI;
 public class TransactionEndpoint {
 
     private final TransactionRepository transactionRepository;
+    private final Enforcer enforcer;
 
-    public TransactionEndpoint(TransactionRepository transactionRepository){
+    public TransactionEndpoint(TransactionRepository transactionRepository, Enforcer enforcer) {
         this.transactionRepository = transactionRepository;
+        this.enforcer = enforcer;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "recordTransactionRequest")
@@ -32,6 +35,11 @@ public class TransactionEndpoint {
     public RecordTransactionResponse recordTransaction(@RequestPayload RecordTransactionRequest request) {
         final var uuid = UUID.randomUUID();
         final var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        this.enforcer.addNamedPolicy("p", authentication.getName(), uuid.toString(), "read:entry");
+        this.enforcer.addNamedPolicy("p", authentication.getName(), uuid.toString(), "write:entry");
+
+        this.enforcer.savePolicy();
 
         transactionRepository.save(new Transaction(
                 uuid,
@@ -47,11 +55,18 @@ public class TransactionEndpoint {
         return response;
     }
 
-    //@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTransactionsByUuidRequest")
-    @SoapAction(NAMESPACE_URI + "/transaction/findByUuid")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTransactionsByUuidRequest")
+    @Action(NAMESPACE_URI + "/transaction/findByUuid")
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
+        final var authentication = SecurityContextHolder.getContext().getAuthentication();
         return transactionRepository.findById(UUID.fromString(request.getUuid()))
+                .stream()
+                .peek(it -> {
+                    if (!this.enforcer.enforce(authentication.getName(), request.getUuid(), "read:entry")) {
+                        throw new InsufficientPrivilegesException(authentication.getName(), "read:entry");
+                    }
+                })
                 .map(transaction -> {
                     try {
                         final var category = new io.wks.moneymanager.gen.Category();
@@ -72,6 +87,7 @@ public class TransactionEndpoint {
                     final var responses = new GetTransactionsResponse();
                     responses.getTransactions().add(resp);
                     return responses;
-                }).orElseThrow(() -> new TransactionNotFoundException(UUID.fromString(request.getUuid())));
+                }).findFirst()
+                .orElseThrow(() -> new TransactionNotFoundException(UUID.fromString(request.getUuid())));
     }
 }

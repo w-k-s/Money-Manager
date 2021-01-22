@@ -3,7 +3,7 @@
     <SOAP-ENV:Body>
         <ns2:getTransactionsResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
             <ns2:transactions>
-                <ns2:uuid>99b340ff-4355-4b12-bd97-302826cc76f4</ns2:uuid>
+                <ns2:uuid>c4b85acd-bc4b-474c-8401-0b7864787d08</ns2:uuid>
                 <ns2:category>
                     <ns2:name>Car</ns2:name>
                     <ns2:name>Cleaning</ns2:name>
