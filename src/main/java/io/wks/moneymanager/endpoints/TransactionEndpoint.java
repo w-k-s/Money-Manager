@@ -4,6 +4,7 @@ import io.wks.moneymanager.Category;
 import io.wks.moneymanager.Transaction;
 import io.wks.moneymanager.gen.*;
 import io.wks.moneymanager.repository.TransactionRepository;
+import io.wks.moneymanager.services.DefaultUser;
 import org.casbin.jcasbin.main.Enforcer;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,7 +39,6 @@ public class TransactionEndpoint {
 
         this.enforcer.addNamedPolicy("p", authentication.getName(), uuid.toString(), "read:entry");
         this.enforcer.addNamedPolicy("p", authentication.getName(), uuid.toString(), "write:entry");
-
         this.enforcer.savePolicy();
 
         transactionRepository.save(new Transaction(
@@ -59,12 +59,12 @@ public class TransactionEndpoint {
     @Action(NAMESPACE_URI + "/transaction/findByUuid")
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
-        final var authentication = SecurityContextHolder.getContext().getAuthentication();
+        final var authentication = (DefaultUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return transactionRepository.findById(UUID.fromString(request.getUuid()))
                 .stream()
                 .peek(it -> {
-                    if (!this.enforcer.enforce(authentication.getName(), request.getUuid(), "read:entry")) {
-                        throw new InsufficientPrivilegesException(authentication.getName(), "read:entry");
+                    if (!this.enforcer.enforce(authentication, it, "read:entry")) {
+                        throw new InsufficientPrivilegesException(authentication.getUsername(), "read:entry");
                     }
                 })
                 .map(transaction -> {

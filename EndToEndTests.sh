@@ -31,7 +31,7 @@ function TEST_GET_RECORD_BY_UUID(){
   local RETURN_UUID=$(echo "$RESULT" | sed -rn 's/.*<ns2:uuid>(.*)<\/ns2:uuid>.*/\1/p')
   local RETURN_CREATED_BY=$(echo "$RESULT" | sed -rn 's/.*<ns2:createdBy>(.*)<\/ns2:createdBy>.*/\1/p')
 
-  if [[ "$RETURN_UUID" = "$TEST_UUID" && "$RETURN_CREATED_BY" = "admin" ]]; then
+  if [[ "$RETURN_UUID" = "$TEST_UUID" && "$RETURN_CREATED_BY" = "user" ]]; then
     echo 'OK'
   else
     echo 'FAILURE'
