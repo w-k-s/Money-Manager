@@ -16,7 +16,7 @@
                 <gs:name>Car</gs:name>
                 <gs:name>Cleaning</gs:name>
             </gs:category>
-            <gs:date>2020-01-16</gs:date>
+            <gs:date>2021-01-16</gs:date>
             <gs:description>Car wash</gs:description>
         </gs:recordTransactionRequest>
     </soapenv:Body>

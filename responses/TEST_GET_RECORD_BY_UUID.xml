@@ -3,13 +3,13 @@
     <SOAP-ENV:Body>
         <ns2:getTransactionsResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
             <ns2:transactions>
-                <ns2:uuid>063f78a8-cee3-4421-9685-4e05f4efdba0</ns2:uuid>
+                <ns2:uuid>00cb607a-530b-4299-a16d-89bb9bdbff37</ns2:uuid>
                 <ns2:category>
                     <ns2:name>Car</ns2:name>
                     <ns2:name>Cleaning</ns2:name>
                 </ns2:category>
-                <ns2:amount>-60.00</ns2:amount>
-                <ns2:date>2020-01-16</ns2:date>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
                 <ns2:description>Car wash</ns2:description>
                 <ns2:createdBy>user</ns2:createdBy>
             </ns2:transactions>

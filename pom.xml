@@ -32,8 +32,14 @@
 
         <!-- database -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <version>1.11.64</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.boostchicken</groupId>
+            <artifactId>spring-data-dynamodb</artifactId>
+            <version>5.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

@@ -60,7 +60,7 @@ public class TransactionEndpoint {
     @ResponsePayload
     public GetTransactionsResponse getTransactionsByUuid(@RequestPayload GetTransactionsByUuidRequest request) {
         final var authentication = (DefaultUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return transactionRepository.findById(UUID.fromString(request.getUuid()))
+        return transactionRepository.findByUuid(UUID.fromString(request.getUuid()))
                 .stream()
                 .peek(it -> {
                     if (!this.enforcer.enforce(authentication, it, "read:entry")) {
@@ -70,15 +70,15 @@ public class TransactionEndpoint {
                 .map(transaction -> {
                     try {
                         final var category = new io.wks.moneymanager.gen.Category();
-                        category.getNames().addAll(transaction.category().asList());
+                        category.getNames().addAll(transaction.getCategory().asList());
 
                         final var response = new TransactionResponse();
-                        response.setUuid(transaction.uuid().toString());
+                        response.setUuid(transaction.getUuid().toString());
                         response.setCategory(category);
-                        response.setAmount(transaction.amount());
-                        response.setDescription(transaction.description());
-                        response.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(transaction.date().toString()));
-                        response.setCreatedBy(transaction.createdBy());
+                        response.setAmount(transaction.getAmount());
+                        response.setDescription(transaction.getDescription());
+                        response.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(transaction.getDate().toString()));
+                        response.setCreatedBy(transaction.getCreatedBy());
                         return response;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
