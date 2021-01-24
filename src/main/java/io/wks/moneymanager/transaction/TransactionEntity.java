@@ -1,9 +1,9 @@
-package io.wks.moneymanager;
+package io.wks.moneymanager.transaction;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import io.wks.moneymanager.repository.converters.CategoryConverter;
-import io.wks.moneymanager.repository.converters.LocalDateConverter;
-import io.wks.moneymanager.repository.converters.UUIDConverter;
+import io.wks.moneymanager.transaction.converters.CategoryConverter;
+import io.wks.moneymanager.transaction.converters.LocalDateConverter;
+import io.wks.moneymanager.transaction.converters.UUIDConverter;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
@@ -12,9 +12,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 @DynamoDBTable(tableName = "Finance")
-public class Transaction {
+public class TransactionEntity {
     @Id
-    private TransactionId transactionId;
+    private TransactionEntityId transactionId;
     private UUID uuid;
     private Category category;
     private String description;
@@ -22,15 +22,15 @@ public class Transaction {
     private LocalDate date;
     private String createdBy;
 
-    public Transaction() {
+    public TransactionEntity() {
     }
 
-    public Transaction(UUID uuid,
-                       Category category,
-                       String description,
-                       BigDecimal amount,
-                       LocalDate date,
-                       String createdBy) {
+    public TransactionEntity(UUID uuid,
+                             Category category,
+                             String description,
+                             BigDecimal amount,
+                             LocalDate date,
+                             String createdBy) {
         Objects.requireNonNull(uuid);
         Objects.requireNonNull(category);
         Objects.requireNonNull(description);
@@ -107,12 +107,37 @@ public class Transaction {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
+        TransactionEntity that = (TransactionEntity) o;
         return Objects.equals(uuid, that.uuid);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionId=" + transactionId +
+                ", uuid=" + uuid +
+                ", category=" + category +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", date=" + date +
+                ", createdBy='" + createdBy + '\'' +
+                '}';
+    }
+
+    @DynamoDBIgnore
+    public Transaction getModel() {
+        return new Transaction(
+                this.uuid,
+                this.category,
+                this.description,
+                this.amount,
+                this.date,
+                this.createdBy
+        );
     }
 }

@@ -1,10 +1,9 @@
-package io.wks.moneymanager.repository.converters;
+package io.wks.moneymanager.transaction.converters;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 public class LocalDateConverter implements DynamoDBTypeConverter<String, LocalDate> {
 

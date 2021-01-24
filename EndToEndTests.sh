@@ -38,6 +38,23 @@ function TEST_GET_RECORD_BY_UUID(){
   fi
 }
 
+function TEST_GET_RECORDS_BETWEEN_DATES(){
+  echo 'TEST_GET_RECORDS_BETWEEN_DATES ...';
+
+  local FROM_DATE='2021-01-16'
+  local TO_DATE='2021-01-17'
+  # https://stackoverflow.com/a/415775/821110
+  local CONTENT=$(sed -e "s/\${from}/$FROM_DATE/" -e "s/\${to}/$TO_DATE/" requests/getTransactionsRequest.xml)
+  local RESULT=$(curl -s -X POST -H 'Content-Type: text/xml'  -d "$CONTENT" $ENDPOINT)
+  echo "$RESULT" > responses/TEST_GET_RECORDS_BETWEEN_DATES.xml;
+
+  if [[ "$RESULT" == *"$TEST_UUID"* && "$RESULT" == *"2021-01-16"* ]]; then
+    echo 'OK'
+  else
+    echo 'FAILURE'
+  fi
+}
+
 function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
   echo 'TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST ...';
 
@@ -67,5 +84,6 @@ function TEST_WSDL(){
 
 TEST_RECORD_TRANSACTION;
 TEST_GET_RECORD_BY_UUID;
+TEST_GET_RECORDS_BETWEEN_DATES;
 TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST;
 TEST_WSDL;

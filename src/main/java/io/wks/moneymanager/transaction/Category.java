@@ -1,4 +1,4 @@
-package io.wks.moneymanager;
+package io.wks.moneymanager.transaction;
 
 import com.google.common.base.Preconditions;
 

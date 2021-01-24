@@ -2,7 +2,7 @@ package io.wks.moneymanager.config;
 
 import io.wks.moneymanager.config.securityinterceptor.DefaultDelegatingSmartEndpointInterceptor;
 import io.wks.moneymanager.endpoints.TransactionEndpoint;
-import io.wks.moneymanager.services.DefaultUserDetailsService;
+import io.wks.moneymanager.user.DefaultUserDetailsService;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

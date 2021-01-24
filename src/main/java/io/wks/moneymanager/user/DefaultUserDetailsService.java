@@ -1,4 +1,4 @@
-package io.wks.moneymanager.services;
+package io.wks.moneymanager.user;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

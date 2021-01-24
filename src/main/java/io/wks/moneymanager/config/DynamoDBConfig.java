@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableDynamoDBRepositories("io.wks.moneymanager.repository")
+@EnableDynamoDBRepositories("io.wks.moneymanager.transaction")
 public class DynamoDBConfig {
 
     @Value("${amazon.dynamodb.endpoint}")

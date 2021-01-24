@@ -1,0 +1,194 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:getTransactionsResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
+            <ns2:transactions>
+                <ns2:uuid>5ddd4dcb-163b-466c-8c4b-fd78a1adfebe</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>e54bb89e-9954-42c1-8cdd-e3fb66fc6b15</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>64f25b23-fbd4-46f0-8e6e-d409065dc3aa</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>4b940fae-bba4-4768-9ef1-01da90e7b914</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>f04272fb-9300-4c8f-bdf2-1da9194c4c03</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>839438e0-579d-48ea-9166-6915854df739</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>b69f1efc-28f2-45c2-acca-4a8552be6ea1</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>00cb607a-530b-4299-a16d-89bb9bdbff37</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>8e28bdeb-d965-4580-9277-01dab8283b5a</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>c42db7f1-3d13-4801-bd29-481e3c50c052</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>d82da919-1907-454a-8e32-95543b85cf33</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>f6ff0cf0-c9e1-4cf2-adce-b5ea72c52096</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>72764290-3d52-4f2f-9edc-e5afac2bb1d4</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>268530a2-21f5-432c-8876-659e0c1d3ade</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>0fcc8a7e-7373-4a94-856e-e1105d48862b</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>bb12e791-bcd2-404b-9da1-99dd4627fcce</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+            <ns2:transactions>
+                <ns2:uuid>6e85d2a0-6a89-42ae-8d3c-c6c782037f91</ns2:uuid>
+                <ns2:category>
+                    <ns2:name>Car</ns2:name>
+                    <ns2:name>Cleaning</ns2:name>
+                </ns2:category>
+                <ns2:amount>-60</ns2:amount>
+                <ns2:date>2021-01-16</ns2:date>
+                <ns2:description>Car wash</ns2:description>
+                <ns2:createdBy>user</ns2:createdBy>
+            </ns2:transactions>
+        </ns2:getTransactionsResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

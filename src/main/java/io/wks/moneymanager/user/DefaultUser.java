@@ -1,4 +1,4 @@
-package io.wks.moneymanager.services;
+package io.wks.moneymanager.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -70,5 +70,16 @@ public class DefaultUser implements UserDetails {
 
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultUser{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", authorities=" + authorities +
+                ", enabled=" + enabled +
+                '}';
     }
 }

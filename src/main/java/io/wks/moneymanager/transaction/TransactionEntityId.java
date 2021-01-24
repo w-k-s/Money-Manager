@@ -1,20 +1,28 @@
-package io.wks.moneymanager;
+package io.wks.moneymanager.transaction;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
-import io.wks.moneymanager.repository.converters.LocalDateConverter;
-import io.wks.moneymanager.repository.converters.UUIDConverter;
+import io.wks.moneymanager.transaction.converters.LocalDateConverter;
+import io.wks.moneymanager.transaction.converters.UUIDConverter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class TransactionId implements Serializable {
+public class TransactionEntityId implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID uuid;
     private LocalDate date;
+
+    public TransactionEntityId() {
+    }
+
+    public TransactionEntityId(UUID uuid, LocalDate date) {
+        this.uuid = uuid;
+        this.date = date;
+    }
 
     @DynamoDBHashKey
     @DynamoDBTypeConverted(converter = UUIDConverter.class)
