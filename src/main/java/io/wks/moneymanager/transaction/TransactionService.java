@@ -17,11 +17,14 @@ import java.util.stream.Collectors;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final TransactionDao transactionDao;
     private final Enforcer enforcer;
 
     public TransactionService(TransactionRepository transactionRepository,
+                              TransactionDao transactionDao,
                               Enforcer enforcer) {
         this.transactionRepository = transactionRepository;
+        this.transactionDao = transactionDao;
         this.enforcer = enforcer;
     }
 
@@ -64,5 +67,11 @@ public class TransactionService {
                 }).map(TransactionEntity::getModel)
                 .findFirst()
                 .orElseThrow(() -> new TransactionNotFoundException(uuid));
+    }
+
+    public CategoryTotals getTotalExpensesPerCategory(int year, int month, DefaultUser user) {
+        final var from = LocalDate.of(year, month, 1);
+        final var to = from.plusMonths(1).minusDays(1);
+        return transactionDao.getTotalExpensesPerCategory(from, to, user.getUsername());
     }
 }

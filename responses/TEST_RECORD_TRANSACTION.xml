@@ -2,9 +2,7 @@
     <SOAP-ENV:Header/>
     <SOAP-ENV:Body>
         <ns2:recordTransactionResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
-            <ns2:uuid>
-                c42db7f1-3d13-4801-bd29-481e3c50c052
-            </ns2:uuid>
+            <ns2:uuid>df8ab0ae-a56e-4626-842d-605f9167354d</ns2:uuid>
         </ns2:recordTransactionResponse>
     </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

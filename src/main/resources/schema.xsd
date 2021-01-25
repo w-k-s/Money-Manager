@@ -64,4 +64,30 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="getTotalExpensesPerCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="categoryTotal">
+        <xs:sequence>
+            <xs:element name="category" type="xs:string"/>
+            <xs:element name="total" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getTotalExpensesPerCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:date"/>
+                <xs:element name="to" type="xs:date"/>
+                <xs:element name="categoryTotals" type="tns:categoryTotal" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

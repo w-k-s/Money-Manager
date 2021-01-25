@@ -55,6 +55,23 @@ function TEST_GET_RECORDS_BETWEEN_DATES(){
   fi
 }
 
+function TEST_GET_TOTAL_EXPENSES_PER_CATEGORY(){
+  echo 'TEST_GET_TOTAL_EXPENSES_PER_CATEGORY ...';
+
+  local YEAR='2021'
+  local MONTH='01'
+  # https://stackoverflow.com/a/415775/821110
+  local CONTENT=$(sed -e "s/\${year}/$YEAR/" -e "s/\${month}/$MONTH/" requests/getTotalExpensesPerCategory.xml)
+  local RESULT=$(curl -s -X POST -H 'Content-Type: text/xml'  -d "$CONTENT" $ENDPOINT)
+  echo "$RESULT" > responses/TEST_GET_TOTAL_EXPENSES_PER_CATEGORY.xml;
+
+  if [[ "$RESULT" == *"Car/Cleaning"* ]]; then
+    echo 'OK'
+  else
+    echo 'FAILURE'
+  fi
+}
+
 function TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST(){
   echo 'TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST ...';
 
@@ -85,5 +102,6 @@ function TEST_WSDL(){
 TEST_RECORD_TRANSACTION;
 TEST_GET_RECORD_BY_UUID;
 TEST_GET_RECORDS_BETWEEN_DATES;
+TEST_GET_TOTAL_EXPENSES_PER_CATEGORY;
 TEST_ERROR_WHEN_RECORD_DOES_NOT_EXIST;
 TEST_WSDL;

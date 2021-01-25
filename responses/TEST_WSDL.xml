@@ -62,8 +62,38 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:element name="getTotalExpensesPerCategoryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="year" type="xs:int"/>
+                <xs:element name="month" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="categoryTotal">
+        <xs:sequence>
+            <xs:element name="category" type="xs:string"/>
+            <xs:element name="total" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="getTotalExpensesPerCategoryResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="from" type="xs:date"/>
+                <xs:element name="to" type="xs:date"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="categoryTotals" type="tns:categoryTotal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
   </wsdl:types>
+  <wsdl:message name="getTotalExpensesPerCategoryResponse">
+    <wsdl:part element="tns:getTotalExpensesPerCategoryResponse" name="getTotalExpensesPerCategoryResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="recordTransactionRequest">
     <wsdl:part element="tns:recordTransactionRequest" name="recordTransactionRequest">
     </wsdl:part>
@@ -76,6 +106,10 @@
     <wsdl:part element="tns:recordTransactionResponse" name="recordTransactionResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getTotalExpensesPerCategoryRequest">
+    <wsdl:part element="tns:getTotalExpensesPerCategoryRequest" name="getTotalExpensesPerCategoryRequest">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="getTransactionsByUuidRequest">
     <wsdl:part element="tns:getTransactionsByUuidRequest" name="getTransactionsByUuidRequest">
     </wsdl:part>
@@ -85,6 +119,12 @@
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="RecordTransaction">
+    <wsdl:operation name="getTotalExpensesPerCategory">
+      <wsdl:input message="tns:getTotalExpensesPerCategoryRequest" name="getTotalExpensesPerCategoryRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getTotalExpensesPerCategoryResponse" name="getTotalExpensesPerCategoryResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="recordTransaction">
       <wsdl:input message="tns:recordTransactionRequest" name="recordTransactionRequest">
     </wsdl:input>
@@ -104,6 +144,15 @@
   </wsdl:portType>
   <wsdl:binding name="RecordTransactionSoap11" type="tns:RecordTransaction">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getTotalExpensesPerCategory">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getTotalExpensesPerCategoryRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTotalExpensesPerCategoryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="recordTransaction">
       <soap:operation soapAction=""/>
       <wsdl:input name="recordTransactionRequest">

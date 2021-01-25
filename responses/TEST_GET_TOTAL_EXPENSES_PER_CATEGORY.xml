@@ -1,0 +1,17 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP-ENV:Header/>
+    <SOAP-ENV:Body>
+        <ns2:getTotalExpensesPerCategoryResponse xmlns:ns2="http://www.wks.io/moneymanager/gen">
+            <ns2:from>2021-01-01</ns2:from>
+            <ns2:to>2021-01-31</ns2:to>
+            <ns2:categoryTotals>
+                <ns2:category>Car</ns2:category>
+                <ns2:total>-300</ns2:total>
+            </ns2:categoryTotals>
+            <ns2:categoryTotals>
+                <ns2:category>Car/Cleaning</ns2:category>
+                <ns2:total>-300</ns2:total>
+            </ns2:categoryTotals>
+        </ns2:getTotalExpensesPerCategoryResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

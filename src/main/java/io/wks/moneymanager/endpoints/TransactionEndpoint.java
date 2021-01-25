@@ -13,7 +13,9 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import org.springframework.ws.soap.addressing.server.annotation.Action;
 
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,6 +69,32 @@ public class TransactionEndpoint {
                 UUID.fromString(request.getUuid()),
                 authentication
         )));
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getTotalExpensesPerCategoryRequest")
+    @ResponsePayload
+    public GetTotalExpensesPerCategoryResponse getTotalExpensesPerCategory(@RequestPayload GetTotalExpensesPerCategoryRequest request) throws DatatypeConfigurationException {
+        final var authentication = (DefaultUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final var from = LocalDate.of(request.getYear(), request.getMonth(), 1);
+        final var to = from.plusMonths(1).minusDays(1);
+        final var categoryTotals = transactionService.getTotalExpensesPerCategory(
+                request.getYear(),
+                request.getMonth(),
+                authentication
+        );
+        final var categoryTotalsResponse = new GetTotalExpensesPerCategoryResponse();
+        categoryTotalsResponse.setFrom(DatatypeFactory.newInstance().newXMLGregorianCalendar(from.toString()));
+        categoryTotalsResponse.setTo(DatatypeFactory.newInstance().newXMLGregorianCalendar(to.toString()));
+        categoryTotals
+                .stream()
+                .map(it -> {
+                    var total = new CategoryTotal();
+                    total.setCategory(it.getKey().toString());
+                    total.setTotal(it.getValue());
+                    return total;
+                })
+                .forEach(it -> categoryTotalsResponse.getCategoryTotals().add(it));
+        return categoryTotalsResponse;
     }
 
     private GetTransactionsResponse getTransactionsResponse(List<Transaction> transactions) {

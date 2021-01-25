@@ -46,7 +46,7 @@ public class TransactionEntity {
         this.createdBy = createdBy;
     }
 
-    @DynamoDBHashKey(attributeName = "uuid")
+    @DynamoDBHashKey(attributeName = "UUID")
     @DynamoDBTypeConverted(converter = UUIDConverter.class)
     public UUID getUuid() {
         return uuid;
@@ -56,7 +56,7 @@ public class TransactionEntity {
         this.uuid = uuid;
     }
 
-    @DynamoDBIndexHashKey(attributeName = "category", globalSecondaryIndexName = "categoryIndex")
+    @DynamoDBIndexHashKey(attributeName = "Category", globalSecondaryIndexName = "CategoryIndex")
     @DynamoDBTypeConverted(converter = CategoryConverter.class)
     public Category getCategory() {
         return category;
@@ -66,7 +66,7 @@ public class TransactionEntity {
         this.category = category;
     }
 
-    @DynamoDBAttribute(attributeName = "description")
+    @DynamoDBAttribute(attributeName = "Description")
     public String getDescription() {
         return description;
     }
@@ -75,7 +75,7 @@ public class TransactionEntity {
         this.description = description;
     }
 
-    @DynamoDBAttribute(attributeName = "amount")
+    @DynamoDBAttribute(attributeName = "Amount")
     public BigDecimal getAmount() {
         return amount;
     }
@@ -84,7 +84,7 @@ public class TransactionEntity {
         this.amount = amount;
     }
 
-    @DynamoDBIndexHashKey(attributeName = "createdBy", globalSecondaryIndexName = "createdByIndex")
+    @DynamoDBIndexHashKey(attributeName = "CreatedBy", globalSecondaryIndexName = "CreatedByIndex")
     public String getCreatedBy() {
         return createdBy;
     }
@@ -93,7 +93,7 @@ public class TransactionEntity {
         this.createdBy = createdBy;
     }
 
-    @DynamoDBRangeKey(attributeName = "date")
+    @DynamoDBRangeKey(attributeName = "TransactionDate")
     @DynamoDBTypeConverted(converter = LocalDateConverter.class)
     public LocalDate getDate() {
         return this.date;

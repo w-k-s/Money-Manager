@@ -2,10 +2,7 @@ package io.wks.moneymanager.transaction;
 
 import com.google.common.base.Preconditions;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,6 +29,18 @@ public record Category(String topCategory, String middleCategory, String bottomC
         return Stream.of(topCategory, middleCategory, bottomCategory)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    public List<Category> asSelfAndParentCategoryList() {
+        var list = new ArrayList<Category>();
+        list.add(new Category(topCategory, null, null));
+        if (this.middleCategory != null) {
+            list.add(new Category(topCategory, middleCategory, null));
+        }
+        if (this.bottomCategory != null) {
+            list.add(new Category(topCategory, middleCategory, bottomCategory));
+        }
+        return Collections.unmodifiableList(list);
     }
 
     @Override
