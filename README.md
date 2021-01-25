@@ -2,11 +2,20 @@
 
 An excuse to get myself familiar with SOAP
 
-## 1. Lessons Learnt
+## 1. Project Goals
 
-### 1.1 SOAP
+- [x] Learn how to make SOAP endpoints; how does implementing SOAP compare to REST?
+- [x] Use Casbin for Attribute based Authentication (ABAC)
+- [x] Use ~~Couchbase~~ DynamoDB as the NoSQL store
+- [x] Learn to write some simple bash scripts
+- [ ] Try to use Token Authentication for SOAP (like [Sabre](https://developer.sabre.com/guides/travel-agency/quickstart-guides/get-token)).
+- [ ] Use ~~Auth0~~ Cognito as the IAM.
 
-#### 1.1.1 Endpoint Mappings
+## 2. Lessons Learnt
+
+### 2.1 SOAP
+
+#### 2.1.1 Endpoint Mappings
 
 - An `EndpointMapping` delivers a `EndpointInvocationChain`, which contains the endpoint that matches the incoming request, and may also contain a list of endpoint interceptors that will be applied to the request and response. 
 
@@ -20,9 +29,9 @@ An excuse to get myself familiar with SOAP
 
 [Reference](https://docs.spring.io/spring-ws/site/reference/html/server.html#server-endpoint-mapping)
 
-### 1.2 DynamoDB
+### 2.2 DynamoDB
 
-#### 1.2.1 Reserved keywords
+#### 2.2.1 Reserved keywords
 
 - `DynamoDB` has an [extensive list](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html) of reserved words (including date) which can not be used as attribute names.
 - AWS docs on Querying a Table states that you can do `WHERE` condition queries (e.g. `SQL query SELECT * FROM Music WHERE Artist='No One You Know'`) in the DynamoDB way, but with one important caveat:
@@ -31,11 +40,22 @@ An excuse to get myself familiar with SOAP
   
   Meaning you can only use key attributes with Query. Doing it in any other way would mean that DynamoDB would run a full scan for you which is NOT efficient - less efficient than using Global secondary indexes.
 
-## 2. Setting up the project
+### 2.3 Couchbase
+
+- It's actually quite poorly documented. I had trouble finding up-to-date documentation
+- Couchbase wasn't able to invoke a all-args constructor using the document even though Mongo can - why?
+- On the whole, I felt it lacked polish.
+
+### 2.4 Casbin
+
+- It's great! Just works :)
+- Although, it's eco-system is largely centered around Go e.g. there is no mongo adapter for Java yet. I should write one.
+
+## 3. Setting up the project
 
 - To generate the schema objects, run `mvn clean compile`
 
-## 3. Setting up the DynamoDB table
+## 4. Setting up the DynamoDB table
 
 1. Log in to the AWS console
 1. Navigate to the DynamoDB section
@@ -50,8 +70,12 @@ An excuse to get myself familiar with SOAP
 1. Click on `Create Index` again
 1. For the Primary Key, enter `CreatedBy` and select type `String`. Name this index `CreatedByIndex` and then click `Create Index`.
 
-## 4. References
+## 5. References
 
 - [How to implement security in SOAP webservice using Spring-WS](https://tutorialflix.com/How-to-implement-security-in-SOAP-webservice-using-Spring-WS/)
 - [Chapter 7. Securing your Web services with Spring-WS](https://docs.spring.io/spring-ws/site/reference/html/security.html)
 - [Fixing Security header not found when delegating to XwssSecurityInterceptor](https://stackoverflow.com/a/43733139)
+- [Casbin](https://casbin.org/docs/en/get-started)
+- [jCasbin](https://github.com/casbin/jcasbin)
+- [jCasbin Spring Boot Starter](https://github.com/jcasbin/casbin-spring-boot-starter)
+- [Bash Cheat Sheet](https://devhints.io/bash)
