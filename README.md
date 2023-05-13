@@ -15,7 +15,11 @@ An excuse to get myself familiar with SOAP
 
 ### 2.1 SOAP
 
-#### 2.1.1 Endpoint Mappings
+#### 2.1.1 WSDL structure
+
+![WSDL Structure](./docs/wsdl-structure.png)
+
+#### 2.1.2 Endpoint Mappings
 
 - An `EndpointMapping` delivers a `EndpointInvocationChain`, which contains the endpoint that matches the incoming request, and may also contain a list of endpoint interceptors that will be applied to the request and response. 
 
